@@ -1,0 +1,23 @@
+{
+  "name": "node-image-manipulator",
+  "version": "1.0.0",
+  "description": "A small node server which manipulates images it receives for use in a Docker demonstration.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devshawn/node-image-manipulator.git"
+  },
+  "author": "Shawn Seymour <seymo079@morris.umn.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devshawn/node-image-manipulator/issues"
+  },
+  "homepage": "https://github.com/devshawn/node-image-manipulator#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "jimp": "^0.2.27"
+  }
+}
