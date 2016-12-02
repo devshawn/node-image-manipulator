@@ -1,6 +1,8 @@
 # Node Image Manipulator
 
-[![Dependency Status](https://david-dm.org/devshawn/node-image-manipulator/status.svg)](https://david-dm.org/devshawn/node-image-manipulator/status.svg) 
+[![Dependency Status](https://david-dm.org/devshawn/node-image-manipulator/status.svg)](https://david-dm.org/devshawn/node-image-manipulator/status.svg)
+<br />
+ 
 A small node server which manipulates images it receives for use in a Docker demonstration.
 
 ## Standalone Server
