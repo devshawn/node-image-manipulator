@@ -2,7 +2,7 @@ var express = require('express');
 var Jimp = require('jimp');
 var concat = require('concat-stream');
 var app = express();
-var mode = process.env.IMAGE_MODE;
+var mode = process.env.IMAGE_MODE || "3";
 
 app.get('/', function(req, res) {
     res.send('Hello world!');
@@ -22,15 +22,21 @@ app.post('/', function(req, res, next) {
 
             switch(mode) {
                 case "1":
-                    image.sepia().getBuffer(Jimp.MIME_PNG, function(err, editedBuffer) {
-                        res.end(editedBuffer);
-                    });
+                    image.sepia();
+                    break;
+                case "2":
+                    image.autocrop();
+                    break;
+                case "3":
+                    image.invert();
                     break;
                 default:
-                    image.greyscale().getBuffer(Jimp.MIME_PNG, function(err, editedBuffer) {
-                        res.end(editedBuffer);
-                    });
+                    image.greyscale();
             }
+
+            image.getBuffer(Jimp.MIME_PNG, function(err, editedBuffer) {
+                res.end(editedBuffer);
+            });
         }).catch(function (err) {
             console.error('Error: ' + err);
         });
