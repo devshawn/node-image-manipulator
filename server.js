@@ -1,5 +1,5 @@
 var express = require('express');
-var jimp = require('jimp');
+var Jimp = require('jimp');
 var concat = require('concat-stream');
 var app = express();
 
@@ -17,10 +17,12 @@ app.post('/', function(req, res, next) {
 
     req.on('end', function () {
         var buffer = Buffer.concat(chunks);
-        jimp.read(buffer, function (err, image) {
-            image.greyscale().getBuffer(jimp.MIME_PNG, function(err, buffer2) {
-                res.end(buffer2);
+        Jimp.read(buffer).then(function (image) {
+            image.greyscale().getBuffer(Jimp.MIME_PNG, function(err, editedBuffer) {
+                res.end(editedBuffer);
             });
+        }).catch(function (err) {
+            console.error(err);
         });
     });
 });
