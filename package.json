@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/devshawn/node-image-manipulator#readme",
   "dependencies": {
+    "concat-stream": "^1.5.2",
     "express": "^4.14.0",
     "jimp": "^0.2.27"
   }

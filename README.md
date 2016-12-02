@@ -1,3 +1,23 @@
 # Node Image Manipulator
 
 A small node server which manipulates images it receives for use in a Docker demonstration.
+
+## Setup
+
+To start up the server, clone the repository and run the following command in the project's root directory:
+
+```
+node server.js
+```
+
+This will start up a server running on port `9001` on `localhost`.
+
+## Usage
+
+This server accepts an image as binary data as part of a `POST` request.
+
+As an example, `node.png` is included in the root directory. To get and receive the same file, you can run the following command:
+
+```
+curl --request POST --data-binary "@node.png" http://localhost:9001/ >> node2.png
+```
