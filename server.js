@@ -2,7 +2,8 @@ var express = require('express');
 var Jimp = require('jimp');
 var concat = require('concat-stream');
 var app = express();
-var mode = process.env.IMAGE_MODE || "3";
+var mode = process.env.IMAGE_MODE;
+var setting1 = process.env.IMAGE_SETTING_1;
 
 app.get('/', function(req, res) {
     res.send('Hello world!');
@@ -21,17 +22,27 @@ app.post('/', function(req, res, next) {
             console.log('Manipulating an image!');
 
             switch(mode) {
-                case "1":
+                case "SEPIA":
                     image.sepia();
                     break;
-                case "2":
-                    image.autocrop();
+                case "GREYSCALE":
+                    image.greyscale();
                     break;
-                case "3":
+                case "INVERT":
                     image.invert();
                     break;
+                case "AUTOCROP":
+                    image.autocrop();
+                    break;
+                case "BRIGHTNESS":
+                    image.brightness(setting1 ? parseFloat(setting1) : 0);
+                    break;
+                case "CONTRAST":
+                    image.contrast(setting1 ? parseFloat(setting1) : 0);
+                    break;
                 default:
-                    image.greyscale();
+                    console.log("Default!");
+                    break;
             }
 
             image.getBuffer(Jimp.MIME_PNG, function(err, editedBuffer) {
