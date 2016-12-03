@@ -31,14 +31,26 @@ app.post('/', function(req, res, next) {
                 case "INVERT":
                     image.invert();
                     break;
-                case "AUTOCROP":
-                    image.autocrop();
+                case "DITHER":
+                    image.dither565();
                     break;
                 case "BRIGHTNESS":
                     image.brightness(setting1 ? parseFloat(setting1) : 0);
                     break;
                 case "CONTRAST":
                     image.contrast(setting1 ? parseFloat(setting1) : 0);
+                    break;
+                case "AUTOCROP":
+                    image.autocrop();
+                    break;
+                case "BLUR":
+                    image.blur(setting1 ? parseInt(setting1) : 1);
+                    break;
+                case "ROTATE":
+                    image.rotate(setting1 ? parseInt(setting1) : 0);
+                    break;
+                case "FLIP":
+                    image.flip((setting1 == "H"), (setting1 == "V"));
                     break;
                 default:
                     console.log("Default!");

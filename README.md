@@ -2,8 +2,8 @@
 
 [![Dependency Status](https://david-dm.org/devshawn/node-image-manipulator/status.svg)](https://david-dm.org/devshawn/node-image-manipulator/status.svg)
 <br />
- 
-A small node server which manipulates images it receives for use in a Docker demonstration.
+
+A small node server which manipulates images it receives for use in a Docker demonstration. To set manipulation modes for the server, visit the [modes](MODES.md) page.
 
 ## Standalone Server
 
