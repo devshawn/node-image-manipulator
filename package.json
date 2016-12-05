@@ -19,6 +19,7 @@
   "dependencies": {
     "concat-stream": "^1.5.2",
     "express": "^4.14.0",
-    "jimp": "^0.2.27"
+    "jimp": "^0.2.27",
+    "request": "^2.79.0"
   }
 }
