@@ -5,6 +5,20 @@
 
 A small node server which manipulates images it receives for use in a Docker demonstration. To set manipulation modes for the server, visit the [modes](MODES.md) page.
 
+## Sending Images
+
+The server is made to intercept `.png` images. We have a simple bash script to send an image:
+
+```bash
+./send-image.sh [hostname] [image.png] [renamed-image.png]
+```
+
+So, for example, if I used this command locally with an image `node.png`:
+
+```bash
+./send-image.sh http://localhost:9001 node.png node2.png
+```
+
 ## Standalone Server
 
 ### Setup
@@ -28,6 +42,10 @@ curl --request POST --data-binary "@node.png" http://localhost:9001/ >> node2.pn
 ```
 
 ## Docker Server
+
+### Docker Hub
+
+The image can be found on [Docker Hub](https://hub.docker.com/r/devshawn/node-image-manipulator).
 
 ### Build From Source
 

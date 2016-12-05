@@ -1,0 +1,19 @@
+version: '2'
+services:
+  first:
+    image: devshawn/node-image-manipulator
+    ports:
+     - "9001:9001"
+    environment:
+     - IMAGE_MODE=INVERT
+    links:
+     - second:next
+  second:
+    image: devshawn/node-image-manipulator
+    environment:
+     - IMAGE_MODE=ROTATE
+     - IMAGE_SETTING_1=180
+    links:
+     - identity:next
+  identity:
+    image: devshawn/node-image-manipulator
