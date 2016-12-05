@@ -1,4 +1,5 @@
 var express = require('express');
+var http = require('http');
 var Jimp = require('jimp');
 var concat = require('concat-stream');
 var app = express();
@@ -12,59 +13,70 @@ app.get('/', function(req, res) {
 app.post('/', function(req, res, next) {
     var chunks = [];
 
-    req.on('data', function (data) {
+    req.on('data', function(data) {
         chunks.push(data);
     });
 
-    req.on('end', function () {
+    req.on('end', function() {
         var buffer = Buffer.concat(chunks);
-        Jimp.read(buffer).then(function (image) {
-            console.log('Manipulating an image!');
 
-            switch(mode) {
-                case "SEPIA":
-                    image.sepia();
-                    break;
-                case "GREYSCALE":
-                    image.greyscale();
-                    break;
-                case "INVERT":
-                    image.invert();
-                    break;
-                case "DITHER":
-                    image.dither565();
-                    break;
-                case "BRIGHTNESS":
-                    image.brightness(setting1 ? parseFloat(setting1) : 0);
-                    break;
-                case "CONTRAST":
-                    image.contrast(setting1 ? parseFloat(setting1) : 0);
-                    break;
-                case "AUTOCROP":
-                    image.autocrop();
-                    break;
-                case "BLUR":
-                    image.blur(setting1 ? parseInt(setting1) : 1);
-                    break;
-                case "ROTATE":
-                    image.rotate(setting1 ? parseInt(setting1) : 0);
-                    break;
-                case "FLIP":
-                    image.flip((setting1 == "H"), (setting1 == "V"));
-                    break;
-                default:
-                    console.log("Default!");
-                    break;
-            }
-
-            image.getBuffer(Jimp.MIME_PNG, function(err, editedBuffer) {
-                res.end(editedBuffer);
-            });
-        }).catch(function (err) {
-            console.error('Error: ' + err);
+        process(buffer, function(result) {
+            res.end(result);
         });
     });
 });
+
+function process(buffer, callback) {
+    if (!mode) {
+        callback(buffer);
+        return;
+    }
+
+
+    Jimp.read(buffer).then(function(image) {
+        switch(mode) {
+            case "SEPIA":
+                image.sepia();
+                break;
+            case "GREYSCALE":
+                image.greyscale();
+                break;
+            case "INVERT":
+                image.invert();
+                break;
+            case "DITHER":
+                image.dither565();
+                break;
+            case "BRIGHTNESS":
+                image.brightness(setting1 ? parseFloat(setting1) : 0);
+                break;
+            case "CONTRAST":
+                image.contrast(setting1 ? parseFloat(setting1) : 0);
+                break;
+            case "AUTOCROP":
+                image.autocrop();
+                break;
+            case "BLUR":
+                image.blur(setting1 ? parseInt(setting1) : 1);
+                break;
+            case "ROTATE":
+                image.rotate(setting1 ? parseInt(setting1) : 0);
+                break;
+            case "FLIP":
+                image.flip((setting1 == "H"), (setting1 == "V"));
+                break;
+            default:
+                console.log("Default!");
+                break;
+        }
+
+        image.getBuffer(Jimp.MIME_PNG, function(err, buffer) {
+            callback(buffer);
+        });
+    }).catch(function (err) {
+        console.error('Error: ' + err);
+    });
+}
 
 var server = app.listen(9001, function() {
     console.log('Server running on mode ' + mode + ' listening on port 9001...');
