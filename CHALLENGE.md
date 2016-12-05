@@ -2,6 +2,8 @@
 
 Using containers and the node server created here, we can create a series of image transformations to manipulate an image. The idea is each container will do one operation on an image, i.e. rotate it, flip it, change its color, etc.
 
+The repo for this challenge can be found at https://github.com/devshawn/node-image-manipulator. This is where the server is described and all of the modes (MODES.md) are listed.
+
 ## Walkthrough
 
 Before we present the challenge, we're going to walk through an example of how this works as we have to link containers together in a chain, or pipeline.
